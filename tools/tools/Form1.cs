@@ -50,9 +50,11 @@ namespace tools
         TextBox _tbTableType;
 
         TreeView _tvAll;
+
+        DataGridView _dvJeff;
         
 
-
+        
         Size btnSize = new Size(80, 30);
         MySqlConnection _connection;
         public Form1()
@@ -205,6 +207,15 @@ namespace tools
                 Size = new Size(250, this.ClientSize.Height - 55)
             };
 
+            _dvJeff = new DataGridView
+            {
+                Top = 30,
+                Left = 360,
+                BackgroundColor = Color.AliceBlue,
+                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(250,this.ClientSize.Height - 55)
+            };
+
             _tbDB = new TextBox
             {
                 Width = 300
@@ -284,7 +295,7 @@ namespace tools
                 FlatStyle = FlatStyle.Popup
             };
             _btnCreateTable.Click += new EventHandler(BtnCreateTable_Click);
-            _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _tbTableName, _lblTableName, _tbTableSize, _lblSize, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable, _tvAll});
+            _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _tbTableName, _lblTableName, _tbTableSize, _lblSize, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable, _tvAll, _dvJeff});
 
             #endregion
 

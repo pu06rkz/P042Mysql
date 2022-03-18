@@ -69,7 +69,7 @@ namespace tools
         private void CreateDB(string dbName)
         {
             _command = "CREATE DATABASE " + dbName;
-            _cmd = new MySqlCommand(_command, _connection); 
+            _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
         }
 
@@ -107,7 +107,7 @@ namespace tools
 
             List<string> liste = new List<string>();
 
-            if(_connection.State == System.Data.ConnectionState.Open)
+            if (_connection.State == System.Data.ConnectionState.Open)
             {
                 _cmd = new MySqlCommand(_command, _connection);
                 MySqlDataReader command = _cmd.ExecuteReader();
@@ -131,7 +131,7 @@ namespace tools
             _command = "SHOW DATABASES;";
 
             List<string> liste = new List<string>();
-            
+
             if (_connection.State == System.Data.ConnectionState.Open)
             {
                 _cmd = new MySqlCommand(_command, _connection);
@@ -146,6 +146,15 @@ namespace tools
 
             return liste;
         }
+
+        public void UseDataBase(string dbName) 
+        {
+            _command = "USE " + dbName;
+            _cmd = new MySqlCommand(_command, _connection);
+            _cmd.ExecuteNonQuery();
+        }
+
+
 
     }
 }
