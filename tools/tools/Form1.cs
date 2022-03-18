@@ -413,8 +413,6 @@ namespace tools
             _tvAll.BeginUpdate();
             _tvAll.Nodes.Clear();
 
-            MessageBox.Show("test");
-
             _tvAll.Nodes.Add("nouvelle db");
             int dbCounter = 0;
             foreach (string db in load.GetAllDataBase())
@@ -427,6 +425,7 @@ namespace tools
                     _tvAll.Nodes[dbCounter].Nodes.Add(table);
                 }
             }
+            _tvAll.EndUpdate();
         }
     }
 }
