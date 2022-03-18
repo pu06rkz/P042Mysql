@@ -60,6 +60,7 @@ namespace tools
             InitializeComponent();
             this.Size = new Size(650, 500);
             this.Text = "MySql Tools";
+            this.BackColor = Color.FromArgb(137, 252, 0);
 
 
             #region MainPage
@@ -82,7 +83,9 @@ namespace tools
                 Text = "Se connecter",
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = new Size(250, this.ClientSize.Height-100),
-                Location = new Point(150, 70)
+                Location = new Point(this.ClientSize.Width/2- 125, 70),
+                BackColor = Color.FromArgb(220, 0, 115),
+                FlatStyle = FlatStyle.Popup
             };
             _btnConnect.Click += new EventHandler(BtnConnect_Click);
 
@@ -92,7 +95,8 @@ namespace tools
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = btnSize,
                 Location = new Point(10,10),
-                //Enabled = false
+                BackColor = Color.FromArgb(220, 0, 115),
+                FlatStyle = FlatStyle.Popup
             };
             _btnDb.Click += new EventHandler(BtnDB_Click);
 
@@ -166,7 +170,9 @@ namespace tools
             _btnEstablishConnection = new Button
             {
                 Text = "Se connecter",
-                Size = btnSize
+                Size = btnSize,
+                BackColor = Color.FromArgb(220, 0, 115),
+                FlatStyle = FlatStyle.Popup
             };
             _btnEstablishConnection.Location = new Point((this.ClientSize.Width - btnSize.Width) / 2, _tbDB.Top + _tbDB.Height + 20);
             _btnEstablishConnection.Click += new EventHandler(BtnEstablishConnection_Click);
@@ -175,7 +181,9 @@ namespace tools
             {
                 Text = "Home",
                 Size = new Size(50, 30),
-                Location = new Point(10, 10)
+                Location = new Point(10, 10),
+                BackColor = Color.FromArgb(0, 139, 248),
+                FlatStyle = FlatStyle.Popup
             };
             _btnBack.Click += new EventHandler(BtnBack_Click);
 
@@ -241,7 +249,9 @@ namespace tools
             {
                 Text = "Create", 
                 Size = btnSize,
-                Location = new Point(20, _tbTableName.Top + _tbTableName.Height + 110)
+                Location = new Point(20, _tbTableName.Top + _tbTableName.Height + 110),
+                BackColor = Color.FromArgb(4, 231, 98),
+                FlatStyle = FlatStyle.Popup
             };
             _btnCreateDB.Click += new EventHandler(BtnCreateDB_Click);
 
@@ -249,14 +259,18 @@ namespace tools
             {
                 Text = "Delete",
                 Size = btnSize,
-                Location = new Point(100, _tbTableName.Top + _tbTableName.Height + 110)
+                Location = new Point(100, _tbTableName.Top + _tbTableName.Height + 110),
+                BackColor = Color.FromArgb(220, 0, 115),
+                FlatStyle = FlatStyle.Popup
             };
             _btnDeleteDB.Click += new EventHandler(BtnDeleteDB_Click);
 
             _btnBackDb = new Button
             {
                 Text = "Home",
-                Size = new Size(50, 30)
+                Size = new Size(50, 30),
+                BackColor = Color.FromArgb(220, 0, 115),
+                FlatStyle = FlatStyle.Popup
             };
             _btnBackDb.Location = new Point(5, (this.ClientSize.Height - _btnBackDb.Height) - 5);
             _btnBackDb.Click += new EventHandler(BtnBack_Click);
@@ -265,7 +279,9 @@ namespace tools
             {
                 Text = "Créer une table",
                 Location = new Point(5, 320),
-                AutoSize = true
+                AutoSize = true,
+                BackColor = Color.FromArgb(0, 139, 248),
+                FlatStyle = FlatStyle.Popup
             };
             _btnCreateTable.Click += new EventHandler(BtnCreateTable_Click);
             _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _tbTableName, _lblTableName, _tbTableSize, _lblSize, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable, _tvAll});
