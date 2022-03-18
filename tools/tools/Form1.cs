@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data;
@@ -14,6 +15,9 @@ namespace tools
 {
     public partial class Form1 : Form
     {
+
+        //Variables----
+
         Panel _pnlMainPage;
         Panel _pnlConnectPage;
         Panel _pnlDBPage;
@@ -44,6 +48,8 @@ namespace tools
         TextBox _tbTableName;
         TextBox _tbTableSize;
         TextBox _tbTableType;
+
+        TreeView _tvAll;
         
 
 
@@ -75,8 +81,8 @@ namespace tools
             {
                 Text = "Se connecter",
                 TextAlign = ContentAlignment.MiddleCenter,
-                Size = btnSize,
-                Location = new Point((this.ClientSize.Width - btnSize.Width) /2, (this.ClientSize.Height - btnSize.Height)/2)
+                Size = new Size(this.ClientSize.Width, this.ClientSize.Height-50),
+                Location = new Point(0, 50)
             };
             _btnConnect.Click += new EventHandler(BtnConnect_Click);
 
@@ -89,6 +95,15 @@ namespace tools
                 //Enabled = false
             };
             _btnDb.Click += new EventHandler(BtnDB_Click);
+
+            _tvAll = new TreeView
+            {
+                Top = 30,
+                Left = 430,
+                BackColor = Color.AliceBlue,
+                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(150, this.ClientSize.Height - 55)
+            };
 
             _pnlMainPage.Controls.AddRange(new Control[] { _btnConnect, _btnDb, _lblTitle});
             this.Controls.Add(_pnlMainPage);
@@ -251,15 +266,24 @@ namespace tools
                 AutoSize = true
             };
             _btnCreateTable.Click += new EventHandler(BtnCreateTable_Click);
-            _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _tbTableName, _lblTableName, _tbTableSize, _lblSize, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable});
+            _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _tbTableName, _lblTableName, _tbTableSize, _lblSize, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable, _tvAll});
 
             #endregion
+
+
         }
 
+        /// <summary>
+        /// Méthode qui amène l'utilisateur sur la page de connection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BtnConnect_Click(object sender, EventArgs e)
         {
             if(_connection == null || _connection.State == ConnectionState.Closed)
             {
+                this.Size = new Size(500, 500);
+
                 this.Controls.Remove(_pnlMainPage);
 
                 this.Controls.Add(_pnlConnectPage);
@@ -272,6 +296,11 @@ namespace tools
             }
         }
 
+        /// <summary>
+        /// Mééthode permettant de tester la connection a phpMyAdmin en vérifiant que les données entrées par l'utilisateur existent sinon un message d'erreur est affiché
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BtnEstablishConnection_Click(object sender, EventArgs e)
         {
             try
@@ -307,19 +336,35 @@ namespace tools
             }
         }
 
+        /// <summary>
+        /// Boutton permettant de retourner au menu principal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         public void BtnBack_Click(object sender, EventArgs e)
         {
             this.Controls.Clear();
             this.Controls.Add(_pnlMainPage);
         }
 
+        /// <summary>
+        /// Boutton permettant d'accéder à la fenêtre pour créer une bd et une table
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BtnDB_Click(object sender, EventArgs e)
         {
-            this.Size = new Size(500, 500);
+            this.Size = new Size(1000, 500);
             this.Controls.Remove(_pnlMainPage);
             this.Controls.Add(_pnlDBPage);
         }
 
+        /// <summary>
+        /// Boutton permettant de créer une bd quand celui-ci est cliqué
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BtnCreateDB_Click(object sender, EventArgs e)
         {
             DB createDB = new DB(_connection, _tbDB.Text, 0);
@@ -327,12 +372,23 @@ namespace tools
             MessageBox.Show("La base de données " + _tbDB.Text + " a été crée");
         }
 
+        /// <summary>
+        /// Boutton permettant de supprimer une bd 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BtnDeleteDB_Click(object sender, EventArgs e)
         {
             DB deleteDB = new DB(_connection, _tbDB.Text, 1);
             
             MessageBox.Show("La base de données " + _tbDB.Text + " a été supprimée");
         }
+
+        /// <summary>
+        /// Boutton permettant de créer une table dans la bd souhaité
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BtnCreateTable_Click(object sender, EventArgs e)
         {
             DB create = new DB(_connection, _tbDB.Text, 1, _tbTableName.Text);
