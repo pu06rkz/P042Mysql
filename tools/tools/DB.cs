@@ -131,8 +131,8 @@ namespace tools
             _command = "SHOW DATABASES;";
 
             List<string> liste = new List<string>();
-
-            if(_connection.State == System.Data.ConnectionState.Open)
+            
+            if (_connection.State == System.Data.ConnectionState.Open)
             {
                 _cmd = new MySqlCommand(_command, _connection);
                 MySqlDataReader command = _cmd.ExecuteReader();
@@ -143,6 +143,7 @@ namespace tools
                 }
                 command.Close();
             }
+
             return liste;
         }
 

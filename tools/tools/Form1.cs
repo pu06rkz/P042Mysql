@@ -191,7 +191,7 @@ namespace tools
             _tvAll = new TreeView
             {
                 Top = 30,
-                Left = 350,
+                Left = 360,
                 BackColor = Color.AliceBlue,
                 BorderStyle = BorderStyle.FixedSingle,
                 Size = new Size(250, this.ClientSize.Height - 55)
@@ -356,9 +356,16 @@ namespace tools
         /// <param name="e"></param>
         public void BtnDB_Click(object sender, EventArgs e)
         {
-            LoadData();
-            this.Controls.Remove(_pnlMainPage);
-            this.Controls.Add(_pnlDBPage);
+            if (_connection == null)
+            {
+                MessageBox.Show("Veuillez vous reconnecter");
+            }
+            else
+            {
+                this.Controls.Remove(_pnlMainPage);
+                LoadData();
+                this.Controls.Add(_pnlDBPage);
+            }
         }
 
         /// <summary>
@@ -406,7 +413,7 @@ namespace tools
             _tvAll.BeginUpdate();
             _tvAll.Nodes.Clear();
 
-
+            MessageBox.Show("test");
 
             _tvAll.Nodes.Add("nouvelle db");
             int dbCounter = 0;
