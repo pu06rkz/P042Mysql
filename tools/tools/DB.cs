@@ -15,7 +15,6 @@ namespace tools
 
         string _command;
 
-        Dictionary<string,string> table = new Dictionary<string, string>();
         public DB(MySqlConnection connection, string dbName, int create)
         {
             _connection = connection;
@@ -32,13 +31,13 @@ namespace tools
             }
         }
 
-        public DB(MySqlConnection connection, string dbName, int type, string tableName, Dictionary<string, string> table)
+        public DB(MySqlConnection connection, string dbName, int type, string tableName)
         {
             _connection = connection;
             _command = "USE " + dbName;
             _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
-            CreateTable(dbName,type, tableName,table);
+            CreateTable(dbName,type, tableName);
         }
 
         private void CreateDB(string dbName)
@@ -54,17 +53,9 @@ namespace tools
             _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
         }
-        private void CreateTable(string dbName,int type, string tableName, Dictionary<string, string> table)
+        private void CreateTable(string dbName,int type, string tableName)
         {
-            _command = "CREATE TABLE " + tableName + "(";
-
-            foreach(var data in table.Keys)
-            {
-                MessageBox.Show(table[data]);
-                _command += table[data];
-                _command += ",";
-            }
-            _command += ")";
+            _command = "CREATE TABLE " + tableName + "(id int)";
             _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
         }

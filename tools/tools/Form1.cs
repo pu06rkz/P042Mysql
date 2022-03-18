@@ -193,11 +193,38 @@ namespace tools
             };
             _lblDB.Location = new Point(_tbDB.Left, _tbDB.Top - _tbDB.Height);
 
+            _tbTableName = new TextBox
+            {
+                Width = _tbDB.Width,
+                Location = new Point(_tbDB.Left, _tbDB.Top + _tbDB.Height + 30)
+            };
+
+            _lblTableName = new Label
+            {
+                Text = "Nom de la table :",
+                AutoSize = true,
+                Location = new Point(_tbTableName.Left, _tbTableName.Top - _tbTableName.Height)
+
+            };
+
+            _tbTableSize = new TextBox
+            {
+                Width = _tbTableName.Width,
+                Location = new Point(_tbTableName.Left, _tbTableName.Top + _tbTableName.Height + 30)
+            };
+
+            _lblSize = new Label
+            {
+                Text = "Données",
+                AutoSize = true,
+                Location = new Point(_tbTableSize.Left, _tbTableSize.Top - _tbTableSize.Height)
+            };
+
             _btnCreateDB = new Button
             {
-                Text = "Create",
+                Text = "Create", 
                 Size = btnSize,
-                Location = new Point((this.ClientSize.Width - btnSize.Width)/2 -btnSize.Width/2 -15, _tbDB.Top + _tbDB.Height + 30)
+                Location = new Point((this.ClientSize.Width - btnSize.Width)/2 -btnSize.Width/2 -15, _tbTableName.Top + _tbTableName.Height + 110)
             };
             _btnCreateDB.Click += new EventHandler(BtnCreateDB_Click);
 
@@ -205,7 +232,7 @@ namespace tools
             {
                 Text = "Delete",
                 Size = btnSize,
-                Location = new Point((this.ClientSize.Width - btnSize.Width) / 2 + btnSize.Width / 2 + 15, _tbDB.Top + _tbDB.Height + 30)
+                Location = new Point((this.ClientSize.Width - btnSize.Width) / 2 + btnSize.Width / 2 + 15, _tbTableName.Top + _tbTableName.Height + 110)
             };
             _btnDeleteDB.Click += new EventHandler(BtnDeleteDB_Click);
 
@@ -224,7 +251,8 @@ namespace tools
                 AutoSize = true
             };
             _btnCreateTable.Click += new EventHandler(BtnCreateTable_Click);
-            _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable});
+            _pnlDBPage.Controls.AddRange(new Control[] { _tbDB, _lblDB, _tbTableName, _lblTableName, _tbTableSize, _lblSize, _btnCreateDB, _btnDeleteDB, _btnBackDb, _btnCreateTable});
+
             #endregion
         }
 
@@ -235,7 +263,6 @@ namespace tools
                 this.Controls.Remove(_pnlMainPage);
 
                 this.Controls.Add(_pnlConnectPage);
-
             }
             else
             {
@@ -308,7 +335,7 @@ namespace tools
         }
         public void BtnCreateTable_Click(object sender, EventArgs e)
         {
-            DB create = new DB(_connection, "test_firstdb", 1, "yoo", new Dictionary<string, string> { { "string", "hello" }, {"int", "he" } });
+            DB create = new DB(_connection, _tbDB.Text, 1, _tbTableName.Text);
         }
     }
 }
