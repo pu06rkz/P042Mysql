@@ -37,9 +37,13 @@ namespace tools
             _command = "USE " + dbName;
             _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
-            CreateTable(dbName,type, tableName);
+            CreateTable(dbName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbName"></param>
         private void CreateDB(string dbName)
         {
             _command = "CREATE DATABASE " + dbName;
@@ -53,11 +57,12 @@ namespace tools
             _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
         }
-        private void CreateTable(string dbName,int type, string tableName)
+        private void CreateTable(string tableName)
         {
             _command = "CREATE TABLE " + tableName + "(id int)";
             _cmd = new MySqlCommand(_command, _connection);
             _cmd.ExecuteNonQuery();
+            MessageBox.Show("Table crée");
         }
     }
 }
