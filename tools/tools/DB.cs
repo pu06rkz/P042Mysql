@@ -17,6 +17,13 @@ namespace tools
 
         string _command;
 
+
+
+
+        public DB(MySqlConnection connection)
+        {
+            _connection = connection;
+        }
         /// <summary>
         /// Constructeur qui regarde si l'utilisateur veut créer ou supprimer une base de donnée
         /// </summary>
@@ -121,7 +128,7 @@ namespace tools
         /// <returns></returns>
         public List<string> GetAllDataBase()
         {
-            _command = "SHOW DATABASE";
+            _command = "SHOW DATABASES;";
 
             List<string> liste = new List<string>();
 

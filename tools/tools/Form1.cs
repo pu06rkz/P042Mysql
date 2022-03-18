@@ -58,7 +58,7 @@ namespace tools
         public Form1()
         {
             InitializeComponent();
-            this.Size = new Size(500, 500);
+            this.Size = new Size(650, 500);
             this.Text = "MySql Tools";
 
 
@@ -81,8 +81,8 @@ namespace tools
             {
                 Text = "Se connecter",
                 TextAlign = ContentAlignment.MiddleCenter,
-                Size = new Size(this.ClientSize.Width, this.ClientSize.Height-50),
-                Location = new Point(0, 50)
+                Size = new Size(250, this.ClientSize.Height-100),
+                Location = new Point(150, 70)
             };
             _btnConnect.Click += new EventHandler(BtnConnect_Click);
 
@@ -96,14 +96,7 @@ namespace tools
             };
             _btnDb.Click += new EventHandler(BtnDB_Click);
 
-            _tvAll = new TreeView
-            {
-                Top = 30,
-                Left = 430,
-                BackColor = Color.AliceBlue,
-                BorderStyle = BorderStyle.FixedSingle,
-                Size = new Size(150, this.ClientSize.Height - 55)
-            };
+           
 
             _pnlMainPage.Controls.AddRange(new Control[] { _btnConnect, _btnDb, _lblTitle});
             this.Controls.Add(_pnlMainPage);
@@ -117,7 +110,7 @@ namespace tools
 
             _tbServer = new TextBox
             {
-                Width = this.ClientSize.Width - 150
+                Width = this.ClientSize.Width - 350
             };
             _tbServer.Location = new Point((this.ClientSize.Width - _tbServer.Width) / 2, this.Top + 30);
 
@@ -195,11 +188,20 @@ namespace tools
                 Size = this.Size
             };
 
+            _tvAll = new TreeView
+            {
+                Top = 30,
+                Left = 350,
+                BackColor = Color.AliceBlue,
+                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(250, this.ClientSize.Height - 55)
+            };
+
             _tbDB = new TextBox
             {
-                Width = this.ClientSize.Width - 100
+                Width = 300
             };
-            _tbDB.Location = new Point((this.ClientSize.Width - _tbDB.Width) / 2, 30);
+            _tbDB.Location = new Point(20, 30);
 
             _lblDB = new Label
             {
@@ -239,7 +241,7 @@ namespace tools
             {
                 Text = "Create", 
                 Size = btnSize,
-                Location = new Point((this.ClientSize.Width - btnSize.Width)/2 -btnSize.Width/2 -15, _tbTableName.Top + _tbTableName.Height + 110)
+                Location = new Point(20, _tbTableName.Top + _tbTableName.Height + 110)
             };
             _btnCreateDB.Click += new EventHandler(BtnCreateDB_Click);
 
@@ -247,7 +249,7 @@ namespace tools
             {
                 Text = "Delete",
                 Size = btnSize,
-                Location = new Point((this.ClientSize.Width - btnSize.Width) / 2 + btnSize.Width / 2 + 15, _tbTableName.Top + _tbTableName.Height + 110)
+                Location = new Point(100, _tbTableName.Top + _tbTableName.Height + 110)
             };
             _btnDeleteDB.Click += new EventHandler(BtnDeleteDB_Click);
 
@@ -282,7 +284,6 @@ namespace tools
         {
             if(_connection == null || _connection.State == ConnectionState.Closed)
             {
-                this.Size = new Size(500, 500);
 
                 this.Controls.Remove(_pnlMainPage);
 
@@ -355,7 +356,7 @@ namespace tools
         /// <param name="e"></param>
         public void BtnDB_Click(object sender, EventArgs e)
         {
-            this.Size = new Size(1000, 500);
+            LoadData();
             this.Controls.Remove(_pnlMainPage);
             this.Controls.Add(_pnlDBPage);
         }
@@ -392,6 +393,33 @@ namespace tools
         public void BtnCreateTable_Click(object sender, EventArgs e)
         {
             DB create = new DB(_connection, _tbDB.Text, 1, _tbTableName.Text);
+        }
+        
+
+        /// <summary>
+        /// Méthode qui charge toutes les tables et bases de données grâce aux méthodes crées dans DB.cs
+        /// </summary>
+        public void LoadData()
+        {
+            DB load = new DB(_connection);
+
+            _tvAll.BeginUpdate();
+            _tvAll.Nodes.Clear();
+
+
+
+            _tvAll.Nodes.Add("nouvelle db");
+            int dbCounter = 0;
+            foreach (string db in load.GetAllDataBase())
+            {
+                dbCounter++;
+                _tvAll.Nodes.Add(db);
+
+                foreach (string table in load.GetAllTable(db))
+                {
+                    _tvAll.Nodes[dbCounter].Nodes.Add(table);
+                }
+            }
         }
     }
 }
