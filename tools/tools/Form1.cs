@@ -60,7 +60,7 @@ namespace tools
             InitializeComponent();
             this.Size = new Size(650, 500);
             this.Text = "MySql Tools";
-            this.BackColor = Color.FromArgb(137, 252, 0);
+            this.BackColor = Color.FromArgb(0, 139, 248);
 
 
             #region MainPage
@@ -182,7 +182,7 @@ namespace tools
                 Text = "Home",
                 Size = new Size(50, 30),
                 Location = new Point(10, 10),
-                BackColor = Color.FromArgb(0, 139, 248),
+                BackColor = Color.FromArgb(137, 252, 0),
                 FlatStyle = FlatStyle.Popup
             };
             _btnBack.Click += new EventHandler(BtnBack_Click);
@@ -269,7 +269,7 @@ namespace tools
             {
                 Text = "Home",
                 Size = new Size(50, 30),
-                BackColor = Color.FromArgb(220, 0, 115),
+                BackColor = Color.FromArgb(137, 252, 0),
                 FlatStyle = FlatStyle.Popup
             };
             _btnBackDb.Location = new Point(5, (this.ClientSize.Height - _btnBackDb.Height) - 5);
@@ -280,7 +280,7 @@ namespace tools
                 Text = "Créer une table",
                 Location = new Point(5, 320),
                 AutoSize = true,
-                BackColor = Color.FromArgb(0, 139, 248),
+                BackColor = Color.FromArgb(137, 252, 0),
                 FlatStyle = FlatStyle.Popup
             };
             _btnCreateTable.Click += new EventHandler(BtnCreateTable_Click);
